@@ -10,7 +10,7 @@ const Logoutcomponent = () => {
 
   const onLogout = () => {
     logout()
-    navigate('/')
+    navigate('/login')
 
   }
   return (

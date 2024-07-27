@@ -21,8 +21,11 @@ const Signup = () => {
         email: '',
         password: '',
         organization: '',
-        role: 'user'
+        role: 'user',
+        privileges:[]
     })
+
+    const availablePrivilages = ['read', 'update', 'delete']
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,9 +33,17 @@ const Signup = () => {
 
         await signup(inputs)
         localStorage.setItem("org-app", JSON.stringify(inputs))
-        navigate('/')
+        navigate('/login')
 
 
+    }
+
+
+    const handlePrivilChange = (privil) => {
+        setInputs((prev) => {
+            const privileges = prev.privileges.includes(privil) ?  prev.privileges.filter(p => p !== privil) : [...prev.privileges, privil];
+            return { ...prev, privileges }
+        })
     }
 
 
@@ -94,7 +105,7 @@ const Signup = () => {
                     </div>
                     <div>
                         <label className='label p-2'>
-                            <span className='text-base label-text'>Email</span>
+                            <span className='text-base label-text'>Password</span>
                         </label>
                         <input type='password' placeholder='Enter Password' value={inputs.password} className='w-full input input-bordered h-10' onChange={(e) => setInputs({ ...inputs, password: e.target.value })} required />
                     </div>
@@ -127,6 +138,26 @@ const Signup = () => {
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
+                    </div>
+                    <div>
+                        
+                        <label className='label p-2'>
+                            <span className='text-base label-text'>Privileges</span>
+                        </label>
+                        <div className='flex flex-col'>
+                            {availablePrivilages.map((privil) => (
+                                <label key={privil} className='flex items-center space-x-2'>
+                                    <input type='checkbox' checked={inputs.privileges.includes(privil)}
+                                    onChange={()=>handlePrivilChange(privil)} />
+                                    <span>
+                                        {privil}
+                                    </span>
+                                </label>
+                            ))}
+
+
+                        </div>
+                       
                     </div>
                     <Link to='/login' className='text-sm hover:underline hover:text-green-600 mt-2 inline-block' >
                         Already have an account?

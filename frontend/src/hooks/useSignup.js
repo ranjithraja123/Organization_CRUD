@@ -8,8 +8,8 @@ const useSignup = () => {
     const [loading, setLoading] = useState(false)
     const {setAuthUser} = useAuthContext()
 
-    const signup = async({name,email,password,organization,role}) => {
-        const success = handleInputErrors({name,email,password,organization,role})
+    const signup = async({name,email,password,organization,role,privileges}) => {
+        const success = handleInputErrors({name,email,password,organization,role,privileges})
         if(!success) return
         setLoading(true)
 
@@ -18,7 +18,7 @@ const useSignup = () => {
             const res = await fetch("/api/auth/register",{
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
-                body: JSON.stringify({name,email,password,organization,role})
+                body: JSON.stringify({name,email,password,organization,role,privileges})
             }
 
             )

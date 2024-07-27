@@ -34,6 +34,7 @@ const DataTable = () => {
           });
         }
         setData(response?.data || []);
+        console.log(authUser,'auaua')
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
@@ -127,15 +128,20 @@ const DataTable = () => {
                 <td>{item.email}</td>
                 <td>{item.role}</td>
                 <td>
+                {authUser.user.privileges.includes('read') && (
                   <button className='px-2' onClick={() => handleView(item._id)}>
                     <FaEye fontSize={20} />
-                  </button>
+                  </button>)}
+                  {authUser.user.privileges.includes('delete') && (
+
                   <button className='px-2' onClick={() => handleDelete(item._id)}>
                     <MdDelete fontSize={20} />
-                  </button>
+                  </button>)}
+                  {authUser.user.privileges.includes('update') && (
+
                   <button className='px-2' onClick={() => handleEdit(item)}>
                     <MdEdit fontSize={20} />
-                  </button>
+                  </button>)}
                 </td>
               </tr>
             ))}
