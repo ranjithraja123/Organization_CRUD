@@ -33,7 +33,7 @@ const Signup = () => {
 
         await signup(inputs)
         localStorage.setItem("org-app", JSON.stringify(inputs))
-        navigate('/login')
+        navigate('/')
 
 
     }
@@ -159,7 +159,7 @@ const Signup = () => {
                         </div>
                        
                     </div>
-                    <Link to='/login' className='text-sm hover:underline hover:text-green-600 mt-2 inline-block' >
+                    <Link to='/' className='text-sm hover:underline hover:text-green-600 mt-2 inline-block' >
                         Already have an account?
                     </Link>
                     <div>
